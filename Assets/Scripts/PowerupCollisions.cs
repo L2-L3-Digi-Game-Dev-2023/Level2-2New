@@ -15,7 +15,7 @@ public class PowerupCollisions : PowerUpController
                 else if(this.name.Contains("health")) powerups.Add(new HealthPU(this.gameObject));
                 else if(this.name.Contains("damage")) powerups.Add(new DamagePU(this.gameObject));
             }
-        }
+        }//test
     }
 //testf
     // Update is called once per frame
