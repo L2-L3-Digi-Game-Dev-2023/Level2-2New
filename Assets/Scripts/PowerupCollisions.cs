@@ -20,6 +20,7 @@ public class PowerupCollisions : PowerUpController
                 if (this.name.Contains("ammo")) powerups.Add(new AmmoPU(this.gameObject));
                 else if(this.name.Contains("health")) powerups.Add(new HealthPU(this.gameObject));
                 else if(this.name.Contains("damage")) powerups.Add(new DamagePU(this.gameObject));
+                Debug.Log(this.name);
             }
         }
     }
