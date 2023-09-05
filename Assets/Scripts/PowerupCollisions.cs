@@ -1,3 +1,9 @@
+/*
+* NAME: Hayden Gillanders
+* DATE MODIFIED: 5 SEPT 2023
+* MODIFICATION: Attempting collision functionality
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +21,7 @@ public class PowerupCollisions : PowerUpController
                 else if(this.name.Contains("health")) powerups.Add(new HealthPU(this.gameObject));
                 else if(this.name.Contains("damage")) powerups.Add(new DamagePU(this.gameObject));
             }
-        }//test
+        }
     }
 //testf
     // Update is called once per frame
