@@ -17,6 +17,7 @@ namespace GameNameSpace
         protected List<Powerups> powerups;
         public TMP_Text[] texts = new TMP_Text[3];
         protected GameObject[] gObjs;
+        public bool isCollisionScript;
         AmmoPU ammo;
         DamagePU damage;
         HealthPU health;
@@ -24,12 +25,33 @@ namespace GameNameSpace
         void Start()
         {
             gObjs = GameObject.FindGameObjectsWithTag("Powerup");
-            
             Debug.Log($"Powerups: {gObjs.Length}");
             powerups = new List<Powerups>();
-            ammo = new AmmoPU(texts[0]);
-            damage = new DamagePU(texts[1]);
-            health = new HealthPU(texts[2]);
+
+            if (!isCollisionScript){
+                ammo = new AmmoPU(texts[0]);
+                damage = new DamagePU(texts[1]);
+                health = new HealthPU(texts[2]);
+            }
+            else if (isCollisionScript){
+                foreach(GameObject obj in gObjs){
+                    if (obj.name.ToLower().Contains("ammo")){
+                        powerups.Add(new AmmoPU(obj));
+                        Debug.Log("added ammo");
+                    }
+                    else if (obj.name.ToLower().Contains("heart")){
+                        powerups.Add(new HealthPU(obj));
+                        Debug.Log("added heart");
+                    }
+                    else if (obj.name.ToLower().Contains("damage")){
+                        powerups.Add(new DamagePU(obj));
+                        Debug.Log("Added damage");
+                    }
+                    else{
+                        Debug.Log($"Incorrect assignment to gObjs List in PowerUpController of {obj.name} {obj}");
+                    }
+                }
+            }
             powerups.Add(ammo);
             powerups.Add(damage);
             powerups.Add(health);
@@ -41,6 +63,7 @@ namespace GameNameSpace
         // Update is called once per frame
         void Update()
         {
+            if(!isCollisionScript){
             foreach(Powerups powerup in powerups.ToList()){
                 if(powerup.associatedObject == null){
                 //For testing **********************
@@ -52,8 +75,13 @@ namespace GameNameSpace
                 powerup.SetColor(powerup.ColorCheck());
                 }
             }
-
+            }
 
         }
+
+        /*void OnCollisionEnter(Collision other)
+        {
+            
+        }*/
     }
 }

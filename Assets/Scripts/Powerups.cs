@@ -18,16 +18,19 @@ public abstract class Powerups
     protected int count = 0;
     protected const int MAX_COUNT = 10;
     protected bool isMax = false;
+    protected bool isText;
     protected Color maxColor, defColor, color;
     protected GameObject assocGameObject = null;
     public Powerups(){
         maxColor = new Color(1f,0.48f,0f);
         defColor = new Color(1f,1f,1f);
+        isText = false;
     }
     public Powerups(TMP_Text _t){
         text = _t;
         maxColor = new Color(1f,0.48f,0f);
         defColor = new Color(1f,1f,1f);
+        isText = true;
     }
 
     ~Powerups(){
@@ -35,6 +38,13 @@ public abstract class Powerups
     }
 
     public abstract void CollisionBehaviour();
+
+    public bool IsText {
+        get {
+            if (!isText == null) return isText;
+            else return false;
+        }
+    }
 
     public KeyCode Key{
         get {return PUKey;}
