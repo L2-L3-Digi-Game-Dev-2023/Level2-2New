@@ -45,7 +45,7 @@ public abstract class Powerups
             else return false;
         }
     }
-
+    public abstract string Name {get;}
     public KeyCode Key{
         get {return PUKey;}
     }
@@ -89,10 +89,10 @@ public class HealthPU : Powerups{
         increase = _inc;
         PUKey = KeyCode.Alpha2;
     }
-    public HealthPU(GameObject _object) : base(){
+    public HealthPU(TMP_Text _t, GameObject _object) : base(_t){
         assocGameObject = _object;
     }
-
+    public override string Name{get{return "heart";}}
 
     public override void CollisionBehaviour()
     {
@@ -110,7 +110,7 @@ public class AmmoPU : Powerups{
         increase = _inc;
         PUKey = KeyCode.Alpha3;
     }
-    public AmmoPU(GameObject _object) : base(){
+    public AmmoPU(TMP_Text _t, GameObject _object) : base(_t){
         assocGameObject = _object;
     }
     public override void CollisionBehaviour()
@@ -118,6 +118,8 @@ public class AmmoPU : Powerups{
         this.Count++;
         
     }
+    public override string Name{get{return "ammo";}}
+
 }
 
 public class DamagePU:Powerups{
@@ -130,7 +132,7 @@ public class DamagePU:Powerups{
         time = _time;
         PUKey = KeyCode.Alpha1;
     }
-    public DamagePU(GameObject _object) : base(){
+    public DamagePU(TMP_Text _t, GameObject _object) : base(_t){
         assocGameObject = _object;
     }
     public override void CollisionBehaviour()
@@ -138,5 +140,7 @@ public class DamagePU:Powerups{
         this.Count++;
         
     }
+    public override string Name{get{return "damage";}}
+
 }
 }

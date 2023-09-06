@@ -14,7 +14,7 @@ namespace GameNameSpace
 {
     public class PowerUpController : MonoBehaviour
     {
-        protected List<Powerups> powerups;
+        public List<Powerups> powerups;
         public TMP_Text[] texts = new TMP_Text[3];
         protected GameObject[] gObjs;
         public bool isCollisionScript;
@@ -36,15 +36,15 @@ namespace GameNameSpace
             else if (isCollisionScript){
                 foreach(GameObject obj in gObjs){
                     if (obj.name.ToLower().Contains("ammo")){
-                        powerups.Add(new AmmoPU(obj));
+                        powerups.Add(new AmmoPU(texts[0], obj));
                         Debug.Log("added ammo");
                     }
                     else if (obj.name.ToLower().Contains("heart")){
-                        powerups.Add(new HealthPU(obj));
+                        powerups.Add(new HealthPU(texts[2], obj));
                         Debug.Log("added heart");
                     }
                     else if (obj.name.ToLower().Contains("damage")){
-                        powerups.Add(new DamagePU(obj));
+                        powerups.Add(new DamagePU(texts[1], obj));
                         Debug.Log("Added damage");
                     }
                     else{
@@ -76,10 +76,22 @@ namespace GameNameSpace
                 }
             }
             }
+            else{
+                Debug.Log("TEST if access");
+                if(LocalCollision.localCollision != null){
+                    Collision col = LocalCollision.localCollision;
+                    Debug.Log(col);
+                    Debug.Log("IEFJOSIJEFIOJ");
+                    foreach(Powerups powerup in powerups.ToList()){
+                        if (col.gameObject.name.ToLower().Contains(powerup.Name)) powerup.Count++;
+                        powerup.UpdateText();
+                    }
+                }
+            }
 
         }
 
         
-        
+
     }
 }
