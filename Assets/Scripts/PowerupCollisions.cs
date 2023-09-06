@@ -24,8 +24,7 @@ public class PowerupCollisions : PowerUpController
             }
         }
     }
-    //iydugf
-//testf
+    
     // Update is called once per frame
     void Update()
     {
