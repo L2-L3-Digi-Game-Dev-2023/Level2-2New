@@ -19,6 +19,7 @@ namespace GameNameSpace
         protected GameObject[] gObjs;
         public bool isCollisionScript;
         AmmoPU ammo;
+        GameObject gameOb;
         DamagePU damage;
         HealthPU health;
         // Start is called before the first frame update
@@ -63,6 +64,12 @@ namespace GameNameSpace
         // Update is called once per frame
         void Update()
         {
+            foreach (Powerups powerup in powerups.ToList()){
+                if(powerup.IsText) {
+                    powerup.SetColor();
+                }
+                Debug.Log(powerup); 
+            }
             if(!isCollisionScript){
             foreach(Powerups powerup in powerups.ToList()){
                 if(powerup.associatedObject == null){
@@ -72,20 +79,18 @@ namespace GameNameSpace
                     powerup.UpdateText();
                 }
                 //END for testing ******************
-                powerup.SetColor(powerup.ColorCheck());
+                powerup.SetColor();
                 }
             }
             }
             else{
                 //Debug.Log("TEST if access");
                 if(LocalCollision.localCollision != null){
-                    GameObject gameOb = LocalCollision.CollidedGO;
+                    gameOb = LocalCollision.CollidedGO;
                     Debug.Log(gameOb);
                     Debug.Log("IEFJOSIJEFIOJ");
                     foreach(Powerups powerup in powerups.ToList()){
-                        if (
-                            gameOb.name.ToLower().Contains(powerup.Name)
-                            ) 
+                        if (gameOb.name.ToLower().Contains(powerup.Name)) 
                         {    
                             powerup.Count++;
                             // **** Testing 
@@ -93,9 +98,10 @@ namespace GameNameSpace
                             Debug.Log(gameOb.name.ToLower() + " ColliderGOName");
                             Debug.Log(powerup.Name + " powerupName");
                             Debug.Log($"{powerup.Count,-5} powerupCount");
+                            
+                            if(powerup.IsText) powerup.UpdateText();
+                            
                         }
-                        powerup.UpdateText();
-                        powerup.SetColor(powerup.ColorCheck());
                     }
                 }
             }

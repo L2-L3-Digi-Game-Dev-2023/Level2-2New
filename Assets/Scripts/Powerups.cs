@@ -24,7 +24,6 @@ public abstract class Powerups
     public Powerups(){
         maxColor = new Color(1f,0.48f,0f);
         defColor = new Color(1f,1f,1f);
-        isText = false;
     }
     public Powerups(TMP_Text _t){
         text = _t;
@@ -71,12 +70,10 @@ public abstract class Powerups
     public void UpdateText(){
         Text = Count.ToString();
     }
-    public Color ColorCheck(){
-        return isMax ? maxColor : defColor;
-    }
+    
 
-    public void SetColor(Color c){
-        text.color = c;
+    public void SetColor(){
+        text.color = isMax ? maxColor : defColor;
     }
 
 }
@@ -91,6 +88,8 @@ public class HealthPU : Powerups{
     }
     public HealthPU(TMP_Text _t, GameObject _object) : base(_t){
         assocGameObject = _object;
+
+        isText = false;
     }
     public override string Name{get{return "heart";}}
 
@@ -112,6 +111,7 @@ public class AmmoPU : Powerups{
     }
     public AmmoPU(TMP_Text _t, GameObject _object) : base(_t){
         assocGameObject = _object;
+        isText = false;
     }
     public override void CollisionBehaviour()
     {
@@ -134,6 +134,7 @@ public class DamagePU:Powerups{
     }
     public DamagePU(TMP_Text _t, GameObject _object) : base(_t){
         assocGameObject = _object;
+        isText = false;
     }
     public override void CollisionBehaviour()
     {

@@ -28,6 +28,7 @@ public class LocalCollision : MonoBehaviour
     void OnCollisionExit(Collision other)
     {
         lCollision = null;
+        collGO = null;
     }
     public static Collision localCollision{
         get {return lCollision;}
