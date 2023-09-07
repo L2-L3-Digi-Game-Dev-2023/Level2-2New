@@ -77,14 +77,25 @@ namespace GameNameSpace
             }
             }
             else{
-                Debug.Log("TEST if access");
+                //Debug.Log("TEST if access");
                 if(LocalCollision.localCollision != null){
-                    Collision col = LocalCollision.localCollision;
-                    Debug.Log(col);
+                    GameObject gameOb = LocalCollision.CollidedGO;
+                    Debug.Log(gameOb);
                     Debug.Log("IEFJOSIJEFIOJ");
                     foreach(Powerups powerup in powerups.ToList()){
-                        if (col.gameObject.name.ToLower().Contains(powerup.Name)) powerup.Count++;
+                        if (
+                            gameOb.name.ToLower().Contains(powerup.Name)
+                            ) 
+                        {    
+                            powerup.Count++;
+                            // **** Testing 
+                            Debug.Log(gameOb.name.ToLower().Contains(powerup.Name).ToString() + " Condition checker");
+                            Debug.Log(gameOb.name.ToLower() + " ColliderGOName");
+                            Debug.Log(powerup.Name + " powerupName");
+                            Debug.Log($"{powerup.Count,-5} powerupCount");
+                        }
                         powerup.UpdateText();
+                        powerup.SetColor(powerup.ColorCheck());
                     }
                 }
             }
