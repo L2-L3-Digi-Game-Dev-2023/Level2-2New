@@ -58,14 +58,18 @@ namespace GameNameSpace
             powerups.Add(health);
 
             Debug.Log($"Powerups: {gObjs.Length}");
-
+            string output = "";
+            foreach (Powerups powerup in powerups.ToList()){
+                output += $"TYPE: {powerup} NAME: {powerup.Name}\n";
+            }
+            Debug.Log(output);
         }
 
         // Update is called once per frame
         void Update()
         {
             foreach (Powerups powerup in powerups.ToList()){
-                if(powerup.IsText) {
+                if(powerup != null && powerup.IsText) {
                     powerup.SetColor();
                 }
                 Debug.Log(powerup); 
@@ -90,7 +94,7 @@ namespace GameNameSpace
                     Debug.Log(gameOb);
                     Debug.Log("IEFJOSIJEFIOJ");
                     foreach(Powerups powerup in powerups.ToList()){
-                        if (gameOb.name.ToLower().Contains(powerup.Name)) 
+                        if (gameOb != null && powerup != null && gameOb.name.ToLower().Contains(powerup.Name)) 
                         {    
                             powerup.Count++;
                             // **** Testing 
@@ -99,7 +103,8 @@ namespace GameNameSpace
                             Debug.Log(powerup.Name + " powerupName");
                             Debug.Log($"{powerup.Count,-5} powerupCount");
                             
-                            if(powerup.IsText) powerup.UpdateText();
+                            powerup.UpdateText();
+                            powerup.SetColor();
                             
                         }
                     }

@@ -17,7 +17,7 @@ public abstract class Powerups
     protected TMP_Text text;
     protected int count = 0;
     protected const int MAX_COUNT = 10;
-    protected bool isMax = false;
+    protected bool isMax;
     protected bool isText;
     protected Color maxColor, defColor, color;
     protected GameObject assocGameObject = null;

@@ -3078,8 +3078,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   texts:
   - {fileID: 811057080}
-  - {fileID: 1324272623}
   - {fileID: 156794651}
+  - {fileID: 1324272623}
   isCollisionScript: 1
 --- !u!1 &1538996402 stripped
 GameObject:
