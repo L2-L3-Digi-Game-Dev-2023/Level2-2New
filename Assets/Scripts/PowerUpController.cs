@@ -59,9 +59,7 @@ namespace GameNameSpace
 
             Debug.Log($"Powerups: {gObjs.Length}");
             string output = "";
-            foreach (Powerups powerup in powerups.ToList()){
-                output += $"TYPE: {powerup} NAME: {powerup.Name}\n";
-            }
+            
             Debug.Log(output);
         }
 
