@@ -61,15 +61,11 @@ namespace GameNameSpace
             if (Input.GetKeyDown(KeyCode.Space)){
                 healthBar.Decrease(10);
                 Debug.Log(healthBar.CValue.ToString());
-                // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
-                healthBar.RefreshBarText(); // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
-                // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
+                
             }
             if(Input.GetKeyDown(KeyCode.R)){
                 ammoBar.Decrease(10);
-                // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
-                ammoBar.RefreshBarText();// DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
-                // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
+                
             }
             
         }
