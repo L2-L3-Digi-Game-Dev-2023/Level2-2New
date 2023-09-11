@@ -40,6 +40,12 @@ namespace GameNameSpace
 
         public void Decrease(int amount){
             CValue = ((CValue - amount) >= 0) ? CValue - amount : 0;
+            RefreshBarText();
+        }
+
+        public void Increase(int amount){
+            CValue = ((CValue + amount) <= MValue) ? CValue + amount : MValue;
+            RefreshBarText();
         }
 
         public void RefreshBarText(){

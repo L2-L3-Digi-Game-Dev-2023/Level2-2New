@@ -14,6 +14,8 @@ namespace GameNameSpace
 {
     public class PowerUpController : MonoBehaviour
     {
+        private static bool[] activate = {false,false};
+        private static bool activeDamage = false;
         public List<Powerups> powerups;
         public TMP_Text[] texts = new TMP_Text[3];
         protected GameObject[] gObjs;
@@ -73,12 +75,33 @@ namespace GameNameSpace
             if(!isCollisionScript){
             foreach(Powerups powerup in powerups.ToList()){
                 if(powerup.associatedObject == null){
-                //For testing **********************
                 if (Input.GetKeyDown(powerup.Key)){
+                    if(powerup is HealthPU){
+                        activate[0] = powerup.ActiveAction();
+                    }
+                    else if(powerup is AmmoPU){
+                        activate[1] = powerup.ActiveAction();
+                    }
+                    else if (powerup is DamagePU){
+                        //Add functionality for damage
+                        Debug.Log("Damageusage registered");
+                    }
+                    
+                }
+                
+                
+                
+                
+                //For testing **********************
+                /*if (Input.GetKeyDown(powerup.Key)){
                     powerup.Count++;
                     powerup.UpdateText();
-                }
+                }*/
                 //END for testing ******************
+                
+                
+                
+                
                 powerup.SetColor();
                 }
             }
@@ -110,7 +133,15 @@ namespace GameNameSpace
 
         }
 
-        
+        public static bool[] ActivatedPowerups{
+            get {return activate;}
+            set {activate = value;}
+        }
+
+        public static bool ActiveDamage{
+            get{return activeDamage;}
+            set{activeDamage = value;}
+        }
 
     }
 }

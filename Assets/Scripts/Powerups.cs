@@ -37,6 +37,7 @@ public abstract class Powerups
     }
 
     public abstract void CollisionBehaviour();
+    public abstract bool ActiveAction();
 
     public bool IsText {
         get {
@@ -57,11 +58,9 @@ public abstract class Powerups
     public int Count{
         get{return count;}
         set{
-            if (!(value >= MAX_COUNT)) count = value;
-            else {
-                count = 10;
-                isMax = true;
-            }
+            if(value > MAX_COUNT) count = MAX_COUNT;
+            else if (value < 0) count = 0;
+            else count = value;
         }
     }
     public GameObject associatedObject{
@@ -98,6 +97,11 @@ public class HealthPU : Powerups{
         this.Count++;
         
     }
+    public override bool ActiveAction(){
+        this.Count--;
+        UpdateText();
+        return true;
+    }
 }
 
 public class AmmoPU : Powerups{
@@ -117,6 +121,11 @@ public class AmmoPU : Powerups{
     {
         this.Count++;
         
+    }
+    public override bool ActiveAction(){
+        this.Count--;
+        UpdateText();
+        return true;
     }
     public override string Name{get{return "ammo";}}
 
@@ -140,6 +149,11 @@ public class DamagePU:Powerups{
     {
         this.Count++;
         
+    }
+    public override bool ActiveAction(){
+        this.Count--;
+        UpdateText();
+        return true;
     }
     public override string Name{get{return "damage";}}
 
