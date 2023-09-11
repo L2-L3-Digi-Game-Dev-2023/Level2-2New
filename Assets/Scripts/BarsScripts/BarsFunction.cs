@@ -27,13 +27,25 @@ namespace GameNameSpace
             bars.Add(healthBar);
             ammoBar = new AmmoBar(150,_sA, _tA);
             bars.Add(ammoBar);
-            foreach (Bar bar in bars) bar.RefreshBarText();
+            // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
+            foreach (Bar bar in bars) bar.RefreshBarText(); // DO NOT REMOVE OTHERWISE UNITY CRASHES
+            // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
+
         }
 
         // Update is called once per frame
         void Update()
         {
             foreach(Bar bar in bars){
+                if(bar is HealthBar barH && PowerUpController.ActivatedPowerups[0]){
+                    barH.Increase(10);
+                    PowerUpController.ActivatedPowerups[0] = false;
+                }
+                else if (bar is AmmoBar barA && PowerUpController.ActivatedPowerups[1]){
+                    barA.Increase(10);
+                    PowerUpController.ActivatedPowerups[0] = false;
+
+                }
                 if(bar.BarZero()[0] == true){
                     switch(bar.BarZero()[1]){
                         case true:
@@ -49,11 +61,15 @@ namespace GameNameSpace
             if (Input.GetKeyDown(KeyCode.Space)){
                 healthBar.Decrease(10);
                 Debug.Log(healthBar.CValue.ToString());
-                healthBar.RefreshBarText();
+                // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
+                healthBar.RefreshBarText(); // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
+                // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
             }
             if(Input.GetKeyDown(KeyCode.R)){
                 ammoBar.Decrease(10);
-                ammoBar.RefreshBarText();
+                // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
+                ammoBar.RefreshBarText();// DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
+                // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
             }
             
         }
