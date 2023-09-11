@@ -42,8 +42,11 @@ namespace GameNameSpace
                     PowerUpController.ActivatedPowerups[0] = false;
                 }
                 else if (bar is AmmoBar barA && PowerUpController.ActivatedPowerups[1]){
-                    barA.Increase(10);
                     PowerUpController.ActivatedPowerups[1] = false;
+                    
+                    
+                    
+                    barA.Increase(10);
 
                 }
                 if(bar.BarZero()[0] == true){

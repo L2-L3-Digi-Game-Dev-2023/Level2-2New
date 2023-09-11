@@ -17,6 +17,7 @@ namespace GameNameSpace
         private static bool[] activate = {false,false};
         private static bool activeDamage = false;
         public List<Powerups> powerups;
+        private Powerups[] powerTexts = new Powerups[3];
         public TMP_Text[] texts = new TMP_Text[3];
         protected GameObject[] gObjs;
         public bool isCollisionScript;
@@ -35,6 +36,10 @@ namespace GameNameSpace
                 ammo = new AmmoPU(texts[0]);
                 damage = new DamagePU(texts[1]);
                 health = new HealthPU(texts[2]);
+
+                powerTexts[0] = ammo;
+                powerTexts[1] = damage;
+                powerTexts[2] = health;
             }
             else if (isCollisionScript){
                 foreach(GameObject obj in gObjs){
@@ -77,14 +82,18 @@ namespace GameNameSpace
                 if(powerup.associatedObject == null){
                 if (Input.GetKeyDown(powerup.Key)){
                     if(powerup is HealthPU){
-                        activate[0] = powerup.ActiveAction();
+                        if(powerTexts[1].Count > 0) activate[0] = powerup.ActiveAction();
                     }
                     else if(powerup is AmmoPU){
-                        activate[1] = powerup.ActiveAction();
+                        if(powerTexts[0].Count > 0) activate[1] = powerup.ActiveAction();
+
                     }
                     else if (powerup is DamagePU){
                         //Add functionality for damage
+
                         Debug.Log("Damageusage registered");
+                        if(powerTexts[1].Count > 0) {Debug.Log("Damageusage success");}
+
                     }
                     
                 }
