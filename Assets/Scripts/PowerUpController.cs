@@ -57,10 +57,8 @@ namespace GameNameSpace
             powerups.Add(damage);
             powerups.Add(health);
 
-            Debug.Log($"Powerups: {gObjs.Length}");
-            string output = "";
+            //Debug.Log($"Powerups: {gObjs.Length}");
             
-            Debug.Log(output);
         }
 
         // Update is called once per frame
@@ -70,7 +68,7 @@ namespace GameNameSpace
                 if(powerup != null && powerup.IsText) {
                     powerup.SetColor();
                 }
-                Debug.Log(powerup); 
+                //Debug.Log(powerup); 
             }
             if(!isCollisionScript){
             foreach(Powerups powerup in powerups.ToList()){
@@ -89,21 +87,22 @@ namespace GameNameSpace
                 //Debug.Log("TEST if access");
                 if(LocalCollision.localCollision != null){
                     gameOb = LocalCollision.CollidedGO;
-                    Debug.Log(gameOb);
-                    Debug.Log("IEFJOSIJEFIOJ");
+                    //Debug.Log(gameOb);
+                    //Debug.Log("IEFJOSIJEFIOJ");
                     foreach(Powerups powerup in powerups.ToList()){
                         if (gameOb != null && powerup != null && gameOb.name.ToLower().Contains(powerup.Name)) 
                         {    
                             powerup.Count++;
                             // **** Testing 
-                            Debug.Log(gameOb.name.ToLower().Contains(powerup.Name).ToString() + " Condition checker");
+                            /*Debug.Log(gameOb.name.ToLower().Contains(powerup.Name).ToString() + " Condition checker");
                             Debug.Log(gameOb.name.ToLower() + " ColliderGOName");
                             Debug.Log(powerup.Name + " powerupName");
                             Debug.Log($"{powerup.Count,-5} powerupCount");
-                            
+                            */
                             powerup.UpdateText();
                             powerup.SetColor();
-                            
+                            Destroy(powerup.associatedObject);
+                            powerups.Remove(powerup);
                         }
                     }
                 }
