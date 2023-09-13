@@ -55,14 +55,12 @@ public abstract class Powerups
         set{text.text = value;}
     }
 
-    public int Count{
-        get{return count;}
-        set{
-            if(value > MAX_COUNT) count = MAX_COUNT;
-            else if (value < 0) count = 0;
-            else count = value;
-        }
+    public abstract int Count{
+        get;
+        set;
     }
+
+    public abstract bool CanInc{get;}
     public GameObject associatedObject{
         get {return assocGameObject;}
     }
@@ -75,9 +73,12 @@ public abstract class Powerups
         text.color = isMax ? maxColor : defColor;
     }
 
+    
+
 }
 public class HealthPU : Powerups{
     int increase;
+    static int healthNums = 0;
     public HealthPU(TMP_Text _t) : base(_t)
     {PUKey = KeyCode.Alpha2;}
     public HealthPU(TMP_Text _t, int _inc) : base(_t)
@@ -91,21 +92,37 @@ public class HealthPU : Powerups{
         isText = false;
     }
     public override string Name{get{return "heart";}}
-
+    public override int Count{
+        get {return Nums;}
+        set {AddHealth(value);}
+    }
     public override void CollisionBehaviour()
     {
         this.Count++;
         
     }
     public override bool ActiveAction(){
-        this.Count--;
+        healthNums--;
         UpdateText();
         return true;
+    }
+    public static void AddHealth(int num){
+        healthNums+=num;
+    }
+
+    public static int Nums{
+        get {return healthNums;}
+        set{AddHealth(value);}
+    }
+    public override bool CanInc{
+        get {if (Count!=null) return Count>0;
+             else return false;}
     }
 }
 
 public class AmmoPU : Powerups{
     int increase;
+    static int AmmoNums = 0;
     public AmmoPU(TMP_Text _t) : base(_t)
     {PUKey = KeyCode.Alpha3;}
     public AmmoPU(TMP_Text _t, int _inc) : base(_t)
@@ -123,17 +140,32 @@ public class AmmoPU : Powerups{
         
     }
     public override bool ActiveAction(){
-        this.Count--;
+        AmmoNums--;
         UpdateText();
         return true;
     }
     public override string Name{get{return "ammo";}}
+    public static void AddAmmo(int num){
+        AmmoNums++;
+    }
 
+    public static int Nums{
+        get{return AmmoNums;}
+    }
+    public override int Count{
+        get {return Nums;}
+        set {AddAmmo(value);}
+    }
+    public override bool CanInc{
+        get {if (Count!=null) return Count>0;
+             else return false;}
+    }
 }
 
 public class DamagePU:Powerups{
     int time;
     int increase;
+    static int damageNums = 0;
     public DamagePU(TMP_Text _t) : base(_t)
     {PUKey = KeyCode.Alpha1;}
     public DamagePU(TMP_Text _t, int _inc, int _time) : base(_t){
@@ -151,11 +183,25 @@ public class DamagePU:Powerups{
         
     }
     public override bool ActiveAction(){
-        this.Count--;
+        damageNums--;
         UpdateText();
         return true;
     }
     public override string Name{get{return "damage";}}
+    public static void AddDamage(int num){
+        damageNums++;
+    }
 
+    public static int Nums{
+        get{return damageNums;}
+    }
+    public override int Count{
+        get {return Nums;}
+        set {AddDamage(value);}
+    }
+    public override bool CanInc{
+        get {if (Count!=null) return Count>0;
+             else return false;}
+    }
 }
 }

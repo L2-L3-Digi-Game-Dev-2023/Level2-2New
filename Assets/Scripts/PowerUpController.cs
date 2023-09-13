@@ -82,11 +82,10 @@ namespace GameNameSpace
                 if(powerup.associatedObject == null){
                 if (Input.GetKeyDown(powerup.Key)){
                     if(powerup is HealthPU){
-                        if(powerTexts[1].Count > 0) activate[0] = powerup.ActiveAction();
+                        activate[0] = powerup.CanInc?powerup.ActiveAction() : false;
                     }
                     else if(powerup is AmmoPU){
-                        if(powerTexts[0].Count > 0) activate[1] = powerup.ActiveAction();
-
+                        activate[1] = powerup.CanInc?powerup.ActiveAction():false;
                     }
                     else if (powerup is DamagePU){
                         //Add functionality for damage
@@ -124,7 +123,15 @@ namespace GameNameSpace
                     foreach(Powerups powerup in powerups.ToList()){
                         if (gameOb != null && powerup != null && gameOb.name.ToLower().Contains(powerup.Name)) 
                         {    
-                            powerup.Count++;
+                            if(powerup is HealthPU he){
+                                HealthPU.AddHealth(1);
+                            }
+                            else if(powerup is AmmoPU am){
+                                AmmoPU.AddAmmo(1);
+                            }
+                            else if(powerup is DamagePU dm){
+                                DamagePU.AddDamage(1);
+                            }
                             // **** Testing 
                             /*Debug.Log(gameOb.name.ToLower().Contains(powerup.Name).ToString() + " Condition checker");
                             Debug.Log(gameOb.name.ToLower() + " ColliderGOName");
@@ -134,7 +141,6 @@ namespace GameNameSpace
                             powerup.UpdateText();
                             powerup.SetColor();
                             Destroy(powerup.associatedObject);
-                            powerups.Remove(powerup);
                         }
                     }
                 }
