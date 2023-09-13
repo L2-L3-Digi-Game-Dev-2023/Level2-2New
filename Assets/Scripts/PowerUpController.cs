@@ -19,7 +19,7 @@ namespace GameNameSpace
         public List<Powerups> powerups;
         private Powerups[] powerTexts = new Powerups[3];
         public TMP_Text[] texts = new TMP_Text[3];
-        protected GameObject[] gObjs;
+        protected List<GameObject> gObjs = new List<GameObject>();
         public bool isCollisionScript;
         AmmoPU ammo;
         GameObject gameOb;
@@ -28,8 +28,10 @@ namespace GameNameSpace
         // Start is called before the first frame update
         void Start()
         {
-            gObjs = GameObject.FindGameObjectsWithTag("Powerup");
-            Debug.Log($"Powerups: {gObjs.Length}");
+            foreach (GameObject gob in GameObject.FindGameObjectsWithTag("Powerup")){
+                gObjs.Add(gob);
+            }
+            Debug.Log($"Powerups: {gObjs.Count}");
             powerups = new List<Powerups>();
 
             if (!isCollisionScript){
@@ -42,7 +44,7 @@ namespace GameNameSpace
                 powerTexts[2] = health;
             }
             else if (isCollisionScript){
-                foreach(GameObject obj in gObjs){
+                foreach(GameObject obj in gObjs.ToList()){
                     if (obj.name.ToLower().Contains("ammo")){
                         powerups.Add(new AmmoPU(texts[0], obj));
                         Debug.Log("added ammo");
@@ -58,6 +60,7 @@ namespace GameNameSpace
                     else{
                         Debug.Log($"Incorrect assignment to gObjs List in PowerUpController of {obj.name} {obj}");
                     }
+                    gObjs.Remove(obj);
                 }
             }
             powerups.Add(ammo);
@@ -121,7 +124,7 @@ namespace GameNameSpace
                     //Debug.Log(gameOb);
                     //Debug.Log("IEFJOSIJEFIOJ");
                     foreach(Powerups powerup in powerups.ToList()){
-                        if (gameOb != null && powerup != null && gameOb.name.ToLower().Contains(powerup.Name)) 
+                        if (gameOb != null && powerup != null && powerup.associatedObject == gameOb && gameOb.name.ToLower().Contains(powerup.Name)) 
                         {    
                             if(powerup is HealthPU he){
                                 HealthPU.AddHealth(1);
