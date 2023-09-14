@@ -34,7 +34,6 @@ public class SphereNav : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
 
         if (GameObject.Find("Minimap Spheres") == null) obj = new GameObject("Minimap Spheres");
         else obj = GameObject.Find("Minimap Spheres");
@@ -51,20 +50,27 @@ public class SphereNav : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var spherRender = this.sphere.GetComponent<Renderer>();
-        
+       
+        var spherRender = (this.sphere.GetComponent<Renderer>()!=null) ? this.sphere.GetComponent<Renderer>() : null;
+        if(spherRender != null){
         sphere.transform.SetParent(obj.transform);
         this.sphere.transform.position = this.transform.position+offset;
         if (isEnemy) spherRender.material.SetColor("_Color", new Color(255, 0, 0));
         else if (!(isEnemy)) spherRender.material.SetColor("_Color", new Color(0, 0, 255));
         if(checkForPowerups(isPowerups))
         {
+            Debug.Log()
             if (isPowerups[0]) spherRender.material.SetColor("_Color", new Color(255,255,0));
-            if (isPowerups[1]) spherRender.material.SetColor("_Color", new Color(0.87f,0.19f,0.39f));
-            if (isPowerups[2]) spherRender.material.SetColor("_Color", new Color(0.13f,0.55f,0.13f));
+            else if (isPowerups[1]) spherRender.material.SetColor("_Color", new Color(0.87f,0.19f,0.39f));
+            else if (isPowerups[2]) spherRender.material.SetColor("_Color", new Color(0.13f,0.55f,0.13f));
+        }
         }
         
-        
+    }
+
+    void OnDisable()
+    {
+        Destroy(sphere);
     }
 }
 }
