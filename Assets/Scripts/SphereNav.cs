@@ -34,12 +34,6 @@ public class SphereNav : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(checkForPowerups(isPowerups)){
-            Debug.Log("___-____--______-__");
-            Debug.Log(isPowerups[0]);
-            Debug.Log(isPowerups[1]);
-            Debug.Log(isPowerups[2]);
-        }
         if (GameObject.Find("Minimap Spheres") == null) obj = new GameObject("Minimap Spheres");
         else obj = GameObject.Find("Minimap Spheres");
         obj.transform.SetParent(GameObject.Find("UI").transform);
