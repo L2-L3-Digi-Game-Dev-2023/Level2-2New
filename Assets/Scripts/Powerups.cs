@@ -41,8 +41,7 @@ public abstract class Powerups
 
     public bool IsText {
         get {
-            if (!isText == null) return isText;
-            else return false;
+            return isText;
         }
     }
     public abstract string Name {get;}
@@ -115,8 +114,7 @@ public class HealthPU : Powerups{
         set{AddHealth(value);}
     }
     public override bool CanInc{
-        get {if (Count!=null) return Count>0;
-             else return false;}
+        get{return Count>0;}
     }
 }
 
@@ -157,8 +155,7 @@ public class AmmoPU : Powerups{
         set {AddAmmo(value);}
     }
     public override bool CanInc{
-        get {if (Count!=null) return Count>0;
-             else return false;}
+        get {return Count>0;}
     }
 }
 
@@ -200,8 +197,7 @@ public class DamagePU:Powerups{
         set {AddDamage(value);}
     }
     public override bool CanInc{
-        get {if (Count!=null) return Count>0;
-             else return false;}
+        get {return Count>0;}
     }
 }
 }
