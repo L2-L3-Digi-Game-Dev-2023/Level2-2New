@@ -1,3 +1,8 @@
+/*
+    Name: Hayden Gillanders
+    Date Modified: 9 October 2023
+    File Purpose: Store instructions for animation
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,14 +21,8 @@ public class AnimatorBehaviour : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.K)){
             Debug.Log("REGISTER");
-            switch(animateComp.GetBool("isRun")){
-                case true:
-                    animateComp.SetBool("isRun", false);
-                    break;
-                case false:
-                    animateComp.SetBool("isRun", true);
-                    break;
-            }
+            animateComp.SetBool("isRun", !(animateComp.GetBool("isRun")));
+            Debug.Log(animateComp.GetBool("isRun").ToString());
         }
     }
 }

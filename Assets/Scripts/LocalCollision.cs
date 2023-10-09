@@ -21,8 +21,9 @@ public class LocalCollision : MonoBehaviour
     void OnCollisionEnter(Collision other)
     {
         Debug.Log($"FROM LCOLL - GAMEOBJECT NAME IS {other.gameObject.name}\nTHIS NAME IS {this.gameObject.name}");
-        if(other.gameObject.name.ToLower().Contains("player")) collGO = this.gameObject;
+        if(other.gameObject.name.ToLower().Contains("player")) {collGO = this.gameObject;
         lCollision = other;
+        }
     }
 
     void OnCollisionExit(Collision other)

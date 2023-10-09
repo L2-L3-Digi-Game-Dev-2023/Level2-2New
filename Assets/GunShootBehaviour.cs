@@ -1,3 +1,9 @@
+/*
+ * Name: Hayden Gillanders
+ * Date Modified: 9 October 2023
+ * File Purpose: Control the behaviour of the gun
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
