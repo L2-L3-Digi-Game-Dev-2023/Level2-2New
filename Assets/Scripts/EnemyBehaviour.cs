@@ -8,9 +8,11 @@ namespace GameNameSpace{
 public class EnemyBehaviour : MonoBehaviour
 {
     System.Random random;
+    const float SCALE_FACTOR = 0.5f;
     Stopwatch timer;
     int scalingFactor;
     int degree;
+    Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,14 @@ public class EnemyBehaviour : MonoBehaviour
         degree = random.Next(0,360);
         timer = new Stopwatch();
         timer.Start();
-        
+        rb = GetComponent<Rigidbody>();
+        foreach(Transform child in transform){
+            Mesh mesh = child.gameObject.GetComponent<MeshFilter>().mesh;
+            if (mesh != null){
+                MeshCollider meshCollider = child.gameObject.AddComponent<MeshCollider>();
+                meshCollider.sharedMesh = mesh;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -34,13 +43,20 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         scalingFactor = 1; // Bigger for slower
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, degree, transform.localRotation.z), Time.deltaTime/scalingFactor);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0, degree, 0), Time.deltaTime/scalingFactor);
 
-        this.GetComponent<Rigidbody>().velocity = Vector3.right * 10f;
+        transform.localPosition += transform.localRotation * new Vector3(0, 0, 2f * Time.deltaTime * SCALE_FACTOR);
+        //transform.rotation * new Vector3(targetVelocity.x, rigidbody.velocity.y, targetVelocity.y);
     }
     void OnCollisionEnter(Collision other)
     {
-        //Do stuff
+        if(!other.gameObject.name.Contains("player")){
+            degree *= -1;
+            if (timer.IsRunning) timer.Restart();
+            UnityEngine.Debug.Log("aeorgnaejitnhoarthn");
+            Update();
+        }
+
     }
 }
 }
