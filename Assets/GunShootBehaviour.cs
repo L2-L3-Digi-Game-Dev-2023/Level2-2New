@@ -45,7 +45,7 @@ public class GunShootBehaviour : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not hit Hall");
+            Debug.Log("Not hit wall");
         }
         HandleMuzzleFlash();
     }
