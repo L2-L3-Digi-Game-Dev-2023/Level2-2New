@@ -19,10 +19,6 @@ public class AnimatorBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K)){
-            Debug.Log("REGISTER");
-            animateComp.SetBool("isRun", !(animateComp.GetBool("isRun")));
-            Debug.Log(animateComp.GetBool("isRun").ToString());
-        }
+        
     }
 }
