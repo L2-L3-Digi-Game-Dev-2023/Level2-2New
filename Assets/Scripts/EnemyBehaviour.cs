@@ -16,16 +16,22 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         random = new System.Random();
         degree = random.Next(0,360);
         timer = new Stopwatch();
         timer.Start();
         rb = GetComponent<Rigidbody>();
         foreach(Transform child in transform){
-            Mesh mesh = child.gameObject.GetComponent<MeshFilter>().mesh;
+            if (!child.gameObject.name.Contains("Hips")){
+            Mesh mesh = child.gameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh;
             if (mesh != null){
+                UnityEngine.Debug.Log("test");
                 MeshCollider meshCollider = child.gameObject.AddComponent<MeshCollider>();
                 meshCollider.sharedMesh = mesh;
+                Rigidbody rbch = child.gameObject.AddComponent<Rigidbody>();
+                rbch.isKinematic = true;
+            }
             }
         }
     }
