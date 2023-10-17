@@ -2678,10 +2678,8 @@ GameObject:
   - component: {fileID: 95565753606369354}
   - component: {fileID: 3386583397232935609}
   - component: {fileID: 715412025244912784}
-  - component: {fileID: 7158434817860042159}
   - component: {fileID: 6262003082020207712}
   - component: {fileID: 7789638379799443546}
-  - component: {fileID: 6927036845810373537}
   m_Layer: 7
   m_Name: Robot_Soldier_Black
   m_TagString: Untagged
@@ -2710,7 +2708,7 @@ Transform:
   - {fileID: 4730502377748738}
   - {fileID: 4448303567346152}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95565753606369354
 Animator:
@@ -2757,18 +2755,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5449a37c16f96460b9b6d6e4428c4400, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7158434817860042159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981860918171908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb6bae95e9929479e964dc4adbdce401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!54 &6262003082020207712
@@ -2820,18 +2806,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &6927036845810373537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981860918171908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb6bae95e9929479e964dc4adbdce401, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1995085305086754
 GameObject:
   m_ObjectHideFlags: 0

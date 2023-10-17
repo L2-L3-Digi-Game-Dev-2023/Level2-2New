@@ -2259,7 +2259,7 @@ GameObject:
   - component: {fileID: 95862797137694222}
   - component: {fileID: 8424627028095145445}
   - component: {fileID: 7685045403519266163}
-  - component: {fileID: 1421806900198816101}
+  - component: {fileID: 6052046748298231227}
   m_Layer: 7
   m_Name: Robot_Soldier_Camo1
   m_TagString: Untagged
@@ -2347,7 +2347,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &1421806900198816101
+--- !u!114 &6052046748298231227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2356,7 +2356,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1763832815635720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb6bae95e9929479e964dc4adbdce401, type: 3}
+  m_Script: {fileID: 11500000, guid: 5449a37c16f96460b9b6d6e4428c4400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1786073130109640
