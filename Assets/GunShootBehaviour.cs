@@ -3,7 +3,7 @@
  * Date Modified: 9 October 2023
  * File Purpose: Control the behaviour of the gun
  */
-
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,15 +14,15 @@ public class GunShootBehaviour : MonoBehaviour
     [SerializeField] float weaponRange;
     [SerializeField] ParticleSystem muzzleFlash;
     Camera mainCam;
-    
+    Enemy thisEnemy;
     void Awake()
     {
         mainCam = Camera.main;
     }
+    
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -38,10 +38,25 @@ public class GunShootBehaviour : MonoBehaviour
         
     }
 
+    Func(GameObject, List<Enemy>, Enemy) getGOinList = (list, obj) =>{
+        foreach(Enemy e in list) if(e.AssocGO == obj) return e;
+    }
+    
     private void HandleRaycast(){
         if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out RaycastHit hit, weaponRange, hittableLayer))
         {
             Debug.Log("Hit a wall");
+            GameObject go = hit.transform.parent.gameObject;
+
+            foreach(Enemy enemy in Enemies.EnemiesList){
+                if (enemy.AssocGO == go)
+            }
+            thisEnemy= getGOinList(Enemies.EnemiesList, go);
+
+
+            thisEnemy.Moving = false;
+
+
         }
         else
         {
