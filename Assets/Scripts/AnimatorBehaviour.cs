@@ -49,6 +49,11 @@ public class AnimatorBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (animateComp.GetCurrentAnimatorStateInfo(0).length <=
+           animateComp.GetCurrentAnimatorStateInfo(0).normalizedTime){
+            Destroy(this);
+           }
+        
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             animateComp.SetBool("isDie", true);
