@@ -77,11 +77,19 @@ public class AnimatorBehaviour : MonoBehaviour
     {
         if(!other.gameObject.name.Contains("player")){
             degree *= -1;
-            if (timer.IsRunning) timer.Restart();
+            if (timer.IsRunning) timer.Restart(); 
             UnityEngine.Debug.Log("aeorgnaejitnhoarthn");
             Update();
         }
 
+    }
+    
+    bool AnimatorIsPlaying(){
+    return animator.GetCurrentAnimatorStateInfo(0).length >
+           animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    }  
+    bool AnimatorIsPlaying(string stateName){
+    return AnimatorIsPlaying() && animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
     }
 }
 }

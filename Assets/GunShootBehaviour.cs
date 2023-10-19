@@ -38,24 +38,19 @@ public class GunShootBehaviour : MonoBehaviour
         
     }
 
-    Func(GameObject, List<Enemy>, Enemy) getGOinList = (list, obj) =>{
-        foreach(Enemy e in list) if(e.AssocGO == obj) return e;
-    }
+    Func<GameObject, Enemy> getEnemyinList = obj =>{
+        foreach(Enemy e in Enemies.EnemiesList) if(e.AssocGO == obj) return e;
+        return null;
+    };
     
     private void HandleRaycast(){
         if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out RaycastHit hit, weaponRange, hittableLayer))
         {
             Debug.Log("Hit a wall");
             GameObject go = hit.transform.parent.gameObject;
-
-            foreach(Enemy enemy in Enemies.EnemiesList){
-                if (enemy.AssocGO == go)
-            }
-            thisEnemy= getGOinList(Enemies.EnemiesList, go);
-
-
-            thisEnemy.Moving = false;
-
+            
+            EnemySelector.FindEnemy(getEnemyinList(go));
+            getEnemyinList(go).Moving = false;
 
         }
         else
