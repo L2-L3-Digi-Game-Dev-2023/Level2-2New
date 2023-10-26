@@ -51,7 +51,7 @@ public class AnimatorBehaviour : MonoBehaviour
     {
         if (animateComp.GetCurrentAnimatorStateInfo(0).length <=
            animateComp.GetCurrentAnimatorStateInfo(0).normalizedTime){
-            Destroy(this);
+            Destroy(this.gameObject);
            }
         
         if (Input.GetKeyDown(KeyCode.Alpha8))
@@ -90,11 +90,11 @@ public class AnimatorBehaviour : MonoBehaviour
     }
     
     bool AnimatorIsPlaying(){
-    return animator.GetCurrentAnimatorStateInfo(0).length >
-           animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    return animateComp.GetCurrentAnimatorStateInfo(0).length >
+           animateComp.GetCurrentAnimatorStateInfo(0).normalizedTime;
     }  
     bool AnimatorIsPlaying(string stateName){
-    return AnimatorIsPlaying() && animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+    return AnimatorIsPlaying() && animateComp.GetCurrentAnimatorStateInfo(0).IsName(stateName);
     }
 }
 }
