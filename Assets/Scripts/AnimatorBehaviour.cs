@@ -49,8 +49,7 @@ public class AnimatorBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((animateComp.GetCurrentAnimatorStateInfo(0).length <=
-           animateComp.GetCurrentAnimatorStateInfo(0).normalizedTime) && animateComp.GetCurrentAnimatorStateInfo(0).IsName("Death From Right  (1)")){
+        if ((animateComp.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.2) && animateComp.GetCurrentAnimatorStateInfo(0).IsName("Death From Right (1)")){
             Destroy(this.gameObject);
            }
         
