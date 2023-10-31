@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.AI.Navigation;
 
 public class EnemyAiTutorial : MonoBehaviour
 {
     public NavMeshAgent agent;
+    public NavMeshSurface surface;
+    [SerializeField] NavMeshData data;
 
     public Transform player;
 
     public LayerMask whatIsGround, whatIsPlayer;
-
+    public int maxAllowed;
     public float health;
 
     //Patroling
@@ -38,7 +41,7 @@ public class EnemyAiTutorial : MonoBehaviour
     private void Start()
     {
         sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        
+        data = surface.navMeshData;
 
     }
     private void Update()
@@ -81,11 +84,16 @@ public class EnemyAiTutorial : MonoBehaviour
         //Calculate random point in range
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
+        
+
         Debug.Log($"Walkpoint select {randomZ},{randomX}");
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-        
+        Debug.Log($"Playerpos select {transform.position.x}, {transform.position.y}, {transform.position.z}");
+        Debug.Log($"{walkPoint.x}, {walkPoint.y}, {walkPoint.z}");
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+        {
             walkPointSet = true;
+        }
     }
 
     private void ChasePlayer()

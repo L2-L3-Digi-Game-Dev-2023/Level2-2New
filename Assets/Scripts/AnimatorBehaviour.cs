@@ -50,8 +50,9 @@ public class AnimatorBehaviour : MonoBehaviour
     void Update()
     {
         if ((animateComp.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.2) && animateComp.GetCurrentAnimatorStateInfo(0).IsName("Death From Right (1)")){
-            Destroy(this.gameObject);
-           }
+                animateComp.SetBool("isDie", false);
+                Destroy(this.gameObject);
+            }
         
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
