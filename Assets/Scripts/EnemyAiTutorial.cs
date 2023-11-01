@@ -141,10 +141,10 @@ public class EnemyAiTutorial : MonoBehaviour
 
     private void RemoveProjectile()
     {
-        /*if(projectile.transform.position.x>(this.transform.position.x+10))
+        if(projectile.transform.position.x>(this.transform.position.x+10))
         {
            Destroy(projectile);
-        }*/
+        }
     }
     
     private void OnDrawGizmosSelected()
