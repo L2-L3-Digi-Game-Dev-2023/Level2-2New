@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 using Unity.AI.Navigation;
 
 public class EnemyAiTutorial : MonoBehaviour
@@ -41,11 +43,19 @@ public class EnemyAiTutorial : MonoBehaviour
     private void Start()
     {
         sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        data = surface.navMeshData;
-
+        try
+        {
+            data = surface.navMeshData;
+        }
+        catch (NullReferenceException)
+        {
+            data = null;
+            return;
+        }
     }
     private void Update()
     {
+        if (data == null) return;
         foreach(GameObject go in projectiles.ToList()){
             if (go.transform.position.x>(this.transform.position.x+10) || go.transform.position.z > this.transform.position.z + 10 || go.transform.position.x<(this.transform.position.x-10) || go.transform.position.z < this.transform.position.z - 10) {
                 Destroy(go);

@@ -10,10 +10,12 @@ using System.Linq;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 using System.Diagnostics;
+using UnityEngine.AI;
 
 namespace GameNameSpace{
 public class AnimatorBehaviour : MonoBehaviour
 {
+        NavMeshAgent navmesh;
     Animator animateComp;
     Enemy enemy;
     System.Random random;
@@ -25,6 +27,7 @@ public class AnimatorBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+            navmesh = (GetComponent<NavMeshAgent>() == null) ? null : GetComponent<NavMeshAgent>();
         enemy = new Enemy(this.gameObject);
         Enemies.EnemiesList.Add(enemy);
             Debug.Log("Added " + this.gameObject + " " + enemy);
@@ -56,7 +59,7 @@ public class AnimatorBehaviour : MonoBehaviour
                 animateComp.SetBool("isDie", false);
                 Enemies.EnemiesList.Remove(enemy);
                 Destroy(this.gameObject);
-                animateComp.Rebind();
+
             }
         
         if (Input.GetKeyDown(KeyCode.Alpha8))

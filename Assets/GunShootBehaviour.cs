@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 namespace GameNameSpace{
 public class GunShootBehaviour : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class GunShootBehaviour : MonoBehaviour
                 Debug.Log(go.name);
                 Enemy en = GetEnemyInList(go);
                 Debug.Log(en + en.AssocGO.name);
-            EnemySelector.FindEnemy(en);
+            EnemySelector.FindEnemy(en, en.AssocGO.GetComponent<NavMeshAgent>());
                 en.Moving = false;
 
         }
