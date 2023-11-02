@@ -2804,7 +2804,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!114 &333576320102310923
@@ -2829,6 +2829,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
+  maxAllowed: 0
   health: 100
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 10
