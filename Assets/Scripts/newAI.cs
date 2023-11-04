@@ -26,8 +26,6 @@ public class newAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(agent.destination);
-        Debug.Log($"{this.transform.position} AAAAAAAAAAAAAAAAAAAAA");
         agent.destination = this.transform.position;
         AssignMaxRanges();
         GetNewPos();
@@ -40,7 +38,6 @@ public class newAI : MonoBehaviour
         if (agent.destination == new Vector3(0, 0, 0)) GetNewPos();
         curTransPos = this.transform.position;
         Vector3 diff = curTransPos - agent.destination;
-        Debug.Log(diff.magnitude);
         if (diff.magnitude <= 1f) hasReached = true;
         else hasReached = false;
         if (hasReached)
@@ -75,11 +72,9 @@ public class newAI : MonoBehaviour
     }
     void GetNewPos()
     {
-        Debug.Log("AUIWHDFYUFGHEUIJHU");
         float newX = (float)Random.Range(maxX[0], maxX[1]);
         float newZ = (float)Random.Range(maxZ[0], maxZ[1]);
         Vector3 diff = curTransPos - new Vector3(newX, 1, newZ);
-        Debug.Log(diff.magnitude + "\nMAG SELECTION");
         agent.SetDestination(ValidatePoint((float)Random.Range(maxX[0], maxX[1]), curTransPos.y, (float)Random.Range(maxZ[0], maxZ[1])));
     }
     private void OnDrawGizmosSelected()

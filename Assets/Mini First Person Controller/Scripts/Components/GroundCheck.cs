@@ -4,7 +4,7 @@
 public class GroundCheck : MonoBehaviour
 {
     [Tooltip("Maximum distance from the ground.")]
-    public float distanceThreshold = .15f;
+    public float distanceThreshold = 0.3f;
 
     [Tooltip("Whether this transform is grounded now.")]
     public bool isGrounded = true;

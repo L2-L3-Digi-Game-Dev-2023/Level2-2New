@@ -40,7 +40,7 @@ public class SphereNav : MonoBehaviour
         offset = (isEnemy||checkForPowerups(isPowerups)) ? new Vector3(0, 0, 0) : new Vector3(0, 2, 0);
         sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         this.sphere.transform.position = this.transform.position + offset;
-        this.sphere.transform.localScale = checkForPowerups(isPowerups) ? new Vector3(3,3,3) : new Vector3(4, 4, 4);
+        this.sphere.transform.localScale = checkForPowerups(isPowerups) ? new Vector3(5,5,5) : new Vector3(6, 6, 6);
         this.sphere.layer = LayerMask.NameToLayer("Minimap");
         Destroy(this.sphere.GetComponent<Collider>());
 

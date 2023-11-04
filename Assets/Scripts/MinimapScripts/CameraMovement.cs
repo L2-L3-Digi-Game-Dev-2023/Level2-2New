@@ -7,7 +7,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public GameObject player;
-    Vector3 offset = new Vector3(0, 40, 0);
+    Vector3 offset = new Vector3(0, 100, 0);
     // Start is called before the first frame update
     void Start()
     {

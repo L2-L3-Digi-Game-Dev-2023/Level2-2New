@@ -2401,8 +2401,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 6019323177839559755}
-  surface: {fileID: 0}
-  data: {fileID: 0}
   player: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
@@ -2410,7 +2408,6 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  maxAllowed: 0
   health: 0
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0

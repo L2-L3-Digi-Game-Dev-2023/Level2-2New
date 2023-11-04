@@ -54,7 +54,6 @@ public class AnimatorBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            Debug.Log(Enemies.ToString());
         if ((animateComp.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.2) && animateComp.GetCurrentAnimatorStateInfo(0).IsName("Death From Right (1)")){
                 animateComp.SetBool("isDie", false);
                 Enemies.EnemiesList.Remove(enemy);
@@ -62,11 +61,7 @@ public class AnimatorBehaviour : MonoBehaviour
 
             }
         
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            animateComp.SetBool("isDie", true);
-            enemy.Moving = false;
-        }
+        
         timer.Stop();
         if(timer.Elapsed.Seconds >= 10){ //10 in prod
             degree = random.Next(0,360);
@@ -75,8 +70,7 @@ public class AnimatorBehaviour : MonoBehaviour
         else{
             timer.Start();
         }
-            Debug.Log("ENEMYYYYYYY");
-        if(enemy.Moving){
+        /*if(enemy.Moving){
         scalingFactor = 1; // Bigger for slower
         enemy.AssocGO.transform.localRotation = Quaternion.Slerp(enemy.AssocGO.transform.localRotation, Quaternion.Euler(0, degree, 0), Time.deltaTime/scalingFactor);
 
@@ -84,7 +78,7 @@ public class AnimatorBehaviour : MonoBehaviour
         
         
         //transform.rotation * new Vector3(targetVelocity.x, rigidbody.velocity.y, targetVelocity.y);
-        }
+        }*/
 
     }
     void OnCollisionEnter(Collision other)
@@ -92,7 +86,6 @@ public class AnimatorBehaviour : MonoBehaviour
         if(!other.gameObject.name.Contains("player")){
             degree *= -1;
             if (timer.IsRunning) timer.Restart(); 
-            UnityEngine.Debug.Log("aeorgnaejitnhoarthn");
             Update();
         }
 

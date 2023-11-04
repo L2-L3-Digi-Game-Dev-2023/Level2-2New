@@ -29,11 +29,19 @@ public class EnemySelector : MonoBehaviour
         else if (EnemiesList.Count == 1)
             {
                 animList[0].SetBool("isDie", true);
-                if (agent != null) agent.baseOffset = 1;
+                if (agent != null)
+                {
+                    agent.baseOffset = -1;
+                    enemy.AssocGO.transform.position += new Vector3(0, 2, 0);
+                }
             }
         else if (EnemiesList.Count > 1)
         {
-                if (agent != null) agent.baseOffset = 1;
+                if (agent != null)
+                {
+                    agent.baseOffset = -1;
+                    if(!enemy.AssocGO.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Death From Right (1)")) enemy.AssocGO.transform.position += new Vector3(0, 2, 0);
+                }
                 for (int i = 0; i < EnemiesList.Count -1; i++) //NOTE: do “EnemiesList.Count - 1” instead, if you get index out of range error
             {
                 if(EnemiesList[i] == enemy.AssocGO)

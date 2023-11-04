@@ -5,12 +5,16 @@ public class FirstPersonMovement : MonoBehaviour
 {
     public float speed = 5;
 
+    [Tooltip("Maximum distance from the ground.")]
+    public float distanceThreshold = 0.05f;
     [Header("Running")]
     public bool canRun = true;
     public bool IsRunning { get; private set; }
     public bool isCrouch { get; private set; }
     public float runSpeed = 9;
     public KeyCode runningKey = KeyCode.LeftShift;
+    const float OriginOffset = .001f;
+    Vector3 RaycastOrigin => transform.position + Vector3.up * OriginOffset;
 
     new Rigidbody rigidbody;
     /// <summary> Functions to override movement speed. Will use the last added override. </summary>
@@ -36,7 +40,7 @@ public class FirstPersonMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        canRun = Physics.Raycast(RaycastOrigin, Vector3.down, distanceThreshold * 2);
 
         // Update IsRunning from input.
         IsRunning = canRun && Input.GetKey(runningKey);
