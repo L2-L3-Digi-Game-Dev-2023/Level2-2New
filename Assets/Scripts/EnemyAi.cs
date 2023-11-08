@@ -18,7 +18,7 @@ public class EnemyAi : MonoBehaviour
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
-
+    public bool isBig;
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -116,11 +116,13 @@ public class EnemyAi : MonoBehaviour
             ///Attack code here
             GameObject go = Instantiate(projectile, transform.position, Quaternion.identity);
             go.AddComponent<SphereCollider>();
-            go.transform.position += new Vector3(0f, 1.2f, 0f);
+            if (isBig) go.name = "bullet2";
+            go.transform.position += new Vector3(0f, isBig ? 5.0f : 0.8f, 0f);
             go.transform.localRotation = this.transform.localRotation;
             Rigidbody rb = (go.GetComponent<Rigidbody>() == null) ? go.AddComponent<Rigidbody>() : go.GetComponent<Rigidbody>();
             projectiles.Add(go);
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            rb.AddForce(transform.up * -1f, ForceMode.Impulse);
             rb.useGravity = false;
             ///End of attack code
 

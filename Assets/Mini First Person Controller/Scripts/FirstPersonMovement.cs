@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FirstPersonMovement : MonoBehaviour
 {
-    public float speed = 5;
+    public float speed = 2;
 
     [Tooltip("Maximum distance from the ground.")]
     public float distanceThreshold = 0.05f;
@@ -11,7 +11,7 @@ public class FirstPersonMovement : MonoBehaviour
     public bool canRun = true;
     public bool IsRunning { get; private set; }
     public bool isCrouch { get; private set; }
-    public float runSpeed = 9;
+    public float runSpeed = 5;
     public KeyCode runningKey = KeyCode.LeftShift;
     const float OriginOffset = .001f;
     Vector3 RaycastOrigin => transform.position + Vector3.up * OriginOffset;

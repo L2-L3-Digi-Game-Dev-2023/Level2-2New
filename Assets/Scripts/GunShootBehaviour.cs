@@ -29,14 +29,18 @@ public class GunShootBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0)){
-            GunRotation.Shooting = true;
-            HandleRaycast();
-        }
-        if(Input.GetKeyUp(KeyCode.Mouse0)){
-            GunRotation.Shooting = false;
-        }
-        
+            if (TimeController.IsPlaying)
+            {
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    GunRotation.Shooting = true;
+                    HandleRaycast();
+                }
+                if (Input.GetKeyUp(KeyCode.Mouse0))
+                {
+                    GunRotation.Shooting = false;
+                }
+            }
     }
 
 

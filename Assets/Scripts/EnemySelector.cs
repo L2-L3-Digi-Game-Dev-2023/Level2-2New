@@ -25,38 +25,35 @@ public class EnemySelector : MonoBehaviour
 
     public static void FindEnemy(Enemy enemy, NavMeshAgent agent)
     {
-            if (EnemiesList.Count == 0) return;
-        else if (EnemiesList.Count == 1)
+            if (!(BarsFunction.AmmoBarVar.CValue <= 0))
             {
-                animList[0].SetBool("isDie", true);
-                if (agent != null)
+                enemy.AssocGO.transform.position -= new Vector3(0f, 1f, 0f);
+                if (EnemiesList.Count == 0) return;
+                else if (EnemiesList.Count == 1)
                 {
-                    agent.baseOffset = -1;
-                    enemy.AssocGO.transform.position += new Vector3(0, 2, 0);
+                    animList[0].SetBool("isDie", true);
+
+                }
+                else if (EnemiesList.Count > 1)
+                {
+
+                    for (int i = 0; i < EnemiesList.Count - 1; i++) //NOTE: do “EnemiesList.Count - 1” instead, if you get index out of range error
+                    {
+                        if (EnemiesList[i] == enemy.AssocGO)
+                        {
+                            //DO STUFF HERE
+                            animList[i].SetBool("isDie", true); //set the animator parameter to play the animation[i]
+                                                                //Remember to turn off this specific animator to avoid turning when another valve is activated. i = the number of the animator in the list. if in the inspector it says: “Element 0” then this would be the same as “animList[0
+                        }
+                    }
+                }
+
+                else
+                {
+                    return;
                 }
             }
-        else if (EnemiesList.Count > 1)
-        {
-                if (agent != null)
-                {
-                    agent.baseOffset = -1;
-                    if(!enemy.AssocGO.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Death From Right (1)")) enemy.AssocGO.transform.position += new Vector3(0, 2, 0);
-                }
-                for (int i = 0; i < EnemiesList.Count -1; i++) //NOTE: do “EnemiesList.Count - 1” instead, if you get index out of range error
-            {
-                if(EnemiesList[i] == enemy.AssocGO)
-                {
-                        //DO STUFF HERE
-                    animList[i].SetBool("isDie", true); //set the animator parameter to play the animation[i]
-                                                        //Remember to turn off this specific animator to avoid turning when another valve is activated. i = the number of the animator in the list. if in the inspector it says: “Element 0” then this would be the same as “animList[0
-                }
-            }
-        }
-        
-        else
-        {
-        return;
-        }
+            else return;
     }
 
     // Update is called once per frame

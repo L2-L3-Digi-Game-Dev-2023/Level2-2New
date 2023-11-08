@@ -25,7 +25,7 @@ namespace GameNameSpace
             if (other.gameObject.name.ToLower().Contains("bullet"))
             {
                 Debug.Log("REUIAHFUJNE");
-                health.Decrease(5);
+                health.Decrease(other.gameObject.name.ToLower().Contains("bullet2") ? 10 : 5);
                 Destroy(other.gameObject);
             }
         }

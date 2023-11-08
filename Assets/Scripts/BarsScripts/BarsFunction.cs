@@ -16,8 +16,8 @@ namespace GameNameSpace
     {
         public Slider _sH,_sA;
         public TMP_Text _tH,_tA;
-        HealthBar healthBar;
-        AmmoBar ammoBar;
+        static HealthBar healthBar;
+        static AmmoBar ammoBar;
         public static List<Bar> bars;
         // Start is called before the first frame update
         void Awake()
@@ -25,7 +25,7 @@ namespace GameNameSpace
             bars = new List<Bar>();
             healthBar = new HealthBar(100,_sH,_tH);
             bars.Add(healthBar);
-            ammoBar = new AmmoBar(150,_sA, _tA);
+            ammoBar = new AmmoBar(50,_sA, _tA);
             bars.Add(ammoBar);
             
 
@@ -64,18 +64,23 @@ namespace GameNameSpace
                     }
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.Space)){
-                healthBar.Decrease(10);
-                Debug.Log(healthBar.CValue.ToString());
-                
-            }
             
-            if(Input.GetKeyDown(KeyCode.R)){
-                ammoBar.Decrease(10);
+            
+            if(Input.GetKeyDown(KeyCode.Mouse0)){
+                ammoBar.Decrease(1);
                 
             }
             
         }
+        public static HealthBar HealthBarVar
+        {
+            get => healthBar;
+        }
+        public static AmmoBar AmmoBarVar
+        {
+            get => ammoBar;
+        }
     }
+
+    
 }
