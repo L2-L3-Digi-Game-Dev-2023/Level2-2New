@@ -66,7 +66,7 @@ namespace GameNameSpace
             }
             
             
-            if(Input.GetKeyDown(KeyCode.Mouse0)){
+            if(Input.GetKeyDown(KeyCode.Mouse0) && TimeController.IsPlaying){
                 ammoBar.Decrease(1);
                 
             }
