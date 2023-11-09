@@ -8,24 +8,30 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 using System.Diagnostics;
+using UnityEngine.AI;
 
 namespace GameNameSpace{
 public class AnimatorBehaviour : MonoBehaviour
 {
+        NavMeshAgent navmesh;
     Animator animateComp;
     Enemy enemy;
     System.Random random;
     const float SCALE_FACTOR = 0.5f;
     Stopwatch timer;
     int scalingFactor;
+        bool hasPassed = false;
     int degree;
     Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
+            navmesh = (GetComponent<NavMeshAgent>() == null) ? null : GetComponent<NavMeshAgent>();
         enemy = new Enemy(this.gameObject);
         Enemies.EnemiesList.Add(enemy);
+            Debug.Log("Added " + this.gameObject + " " + enemy);
         animateComp = gameObject.GetComponent<Animator>();
         random = new System.Random();
         degree = random.Next(0,360);
@@ -36,8 +42,8 @@ public class AnimatorBehaviour : MonoBehaviour
             if (!child.gameObject.name.Contains("Hips")){
             Mesh mesh = child.gameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh;
             if (mesh != null && child != null){
-                UnityEngine.Debug.Log("test");
                 MeshCollider meshCollider = child.gameObject.AddComponent<MeshCollider>();
+                        meshCollider.sharedMesh = null;
                 meshCollider.sharedMesh = mesh;
                 Rigidbody rbch = child.gameObject.AddComponent<Rigidbody>();
                 rbch.isKinematic = true;
@@ -49,16 +55,19 @@ public class AnimatorBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (animateComp.GetCurrentAnimatorStateInfo(0).length <=
-           animateComp.GetCurrentAnimatorStateInfo(0).normalizedTime){
-            Destroy(this);
-           }
+            if ((animateComp.GetCurrentAnimatorStateInfo(0).IsName("Death From Right (1)")) && !hasPassed)
+            {
+                transform.position -= new Vector3(0f, 1f, 0f);
+                hasPassed = true;
+            }
+        if ((animateComp.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.2) && animateComp.GetCurrentAnimatorStateInfo(0).IsName("Death From Right (1)")){
+                animateComp.SetBool("isDie", false);
+                Enemies.EnemiesList.Remove(enemy);
+                Destroy(this.gameObject);
+
+            }
         
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            animateComp.SetBool("isDie", true);
-            enemy.Moving = false;
-        }
+        
         timer.Stop();
         if(timer.Elapsed.Seconds >= 10){ //10 in prod
             degree = random.Next(0,360);
@@ -67,7 +76,7 @@ public class AnimatorBehaviour : MonoBehaviour
         else{
             timer.Start();
         }
-        if(enemy.Moving){
+        /*if(enemy.Moving){
         scalingFactor = 1; // Bigger for slower
         enemy.AssocGO.transform.localRotation = Quaternion.Slerp(enemy.AssocGO.transform.localRotation, Quaternion.Euler(0, degree, 0), Time.deltaTime/scalingFactor);
 
@@ -75,7 +84,7 @@ public class AnimatorBehaviour : MonoBehaviour
         
         
         //transform.rotation * new Vector3(targetVelocity.x, rigidbody.velocity.y, targetVelocity.y);
-        }
+        }*/
 
     }
     void OnCollisionEnter(Collision other)
@@ -83,18 +92,17 @@ public class AnimatorBehaviour : MonoBehaviour
         if(!other.gameObject.name.Contains("player")){
             degree *= -1;
             if (timer.IsRunning) timer.Restart(); 
-            UnityEngine.Debug.Log("aeorgnaejitnhoarthn");
             Update();
         }
 
     }
     
     bool AnimatorIsPlaying(){
-    return animator.GetCurrentAnimatorStateInfo(0).length >
-           animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    return animateComp.GetCurrentAnimatorStateInfo(0).length >
+           animateComp.GetCurrentAnimatorStateInfo(0).normalizedTime;
     }  
     bool AnimatorIsPlaying(string stateName){
-    return AnimatorIsPlaying() && animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+    return AnimatorIsPlaying() && animateComp.GetCurrentAnimatorStateInfo(0).IsName(stateName);
     }
 }
 }

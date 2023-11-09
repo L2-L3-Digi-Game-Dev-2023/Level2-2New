@@ -10,6 +10,15 @@ public class Enemies{
         get=> enemies;
         set=> enemies = value;
     }
+    public static new string ToString()
+        {
+            string output = "";
+            foreach(Enemy enemy in enemies)
+            {
+                output += $"{enemy}\n";
+            }
+            return output;
+        }
 }
 public class Enemy
 {
@@ -27,5 +36,11 @@ public class Enemy
         get=> assoc;
         set => assoc = value;
     }
+
+    public override string ToString()
+        {
+            string output = $"{assoc.name} {moving.ToString()}";
+            return output ;
+        }
 }
 }

@@ -16,21 +16,25 @@ namespace GameNameSpace
     {
         public Slider _sH,_sA;
         public TMP_Text _tH,_tA;
-        HealthBar healthBar;
-        AmmoBar ammoBar;
-        List<Bar> bars;
+        static HealthBar healthBar;
+        static AmmoBar ammoBar;
+        public static List<Bar> bars;
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             bars = new List<Bar>();
             healthBar = new HealthBar(100,_sH,_tH);
             bars.Add(healthBar);
-            ammoBar = new AmmoBar(150,_sA, _tA);
+            ammoBar = new AmmoBar(50,_sA, _tA);
             bars.Add(ammoBar);
+            
+
+        }
+        void Start()
+        {
             // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
             foreach (Bar bar in bars) bar.RefreshBarText(); // DO NOT REMOVE OTHERWISE UNITY CRASHES
             // DO NOT REMOVE OTHERWISE UNITY CRASHES **************************************
-
         }
 
         // Update is called once per frame
@@ -60,17 +64,23 @@ namespace GameNameSpace
                     }
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.Space)){
-                healthBar.Decrease(10);
-                Debug.Log(healthBar.CValue.ToString());
-                
-            }
-            if(Input.GetKeyDown(KeyCode.R)){
-                ammoBar.Decrease(10);
+            
+            
+            if(Input.GetKeyDown(KeyCode.Mouse0) && TimeController.IsPlaying){
+                ammoBar.Decrease(1);
                 
             }
             
         }
+        public static HealthBar HealthBarVar
+        {
+            get => healthBar;
+        }
+        public static AmmoBar AmmoBarVar
+        {
+            get => ammoBar;
+        }
     }
+
+    
 }
