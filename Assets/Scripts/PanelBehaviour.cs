@@ -1,3 +1,7 @@
+/*
+ * Behaviour of panels
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,12 +19,16 @@ public class PanelBehaviour : MonoBehaviour
     {
         
     }
+    /// <summary>
+    /// Whenever the panel is enabled pause
+    /// </summary>
     void OnEnable()
     {
-        Debug.Log("ENABLED");
         TimeController.TogglePause(true);
     }
-
+    /// <summary>
+    /// Whenever panel is disabled unpause
+    /// </summary>
     void OnDisable()
     {
         Debug.Log("DISABLED");

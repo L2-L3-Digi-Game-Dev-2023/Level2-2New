@@ -1,3 +1,6 @@
+/*
+ * Render info panel
+ */
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,44 +26,43 @@ public class InfoRend : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        //Set to appropriate bools
         _panels[0].SetActive(isShow[0]);
         _panels[1].SetActive(isShow[1]);
         _panels[2].SetActive(isShow[2]);
-
-        Debug.Log(HasATrue(isShow));
+        //if any of the isshow's are true, pause
         if (HasATrue(isShow)) TimeController.TogglePause(true);
     }
+    /// <summary>
+    /// open particular panel
+    /// </summary>
+    /// <param name="param"></param>
     public static void SetNo(int param)
     {
         param--;
         isShow[param] = false;
     }
-
+    /// <summary>
+    /// Check if list has a true
+    /// </summary>
+    /// <param name="bools"></param>
+    /// <returns></returns>
     public bool HasATrue(bool[] bools)
     {
         foreach (bool s in bools) if (s) return true;
         return false;
     }
-    //public static void Hide()
-    //{
-    //    Active = false;
-    //    Cursor.visible = false;
-    //    Cursor.lockState = CursorLockMode.Locked;
-    //}
-
-    //public static void Show()
-    //{
-    //    Active = true;
-    //    Cursor.visible = true;
-    //    Cursor.lockState = CursorLockMode.None;
-    //}
-
+    /// <summary>
+    /// Check collisions
+    /// </summary>
+    /// <param name="other"></param>
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log("TESTSETETSEDTGESTG");
+        //if colliding with player
         if (other.gameObject.name.ToLower().Contains("first person"))
         {
             string name = this.gameObject.name.ToLower();
+            //Set appropriate true depending on current object name 
             if (name.Contains("info")) isShow[0] = true;
             else if (name.Contains("incorrect")) isShow[1] = true;
             else if (name.Contains("correct")) isShow[2] = true;

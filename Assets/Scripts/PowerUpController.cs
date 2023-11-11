@@ -1,7 +1,4 @@
 /*
- * Name: Hayden Gillanders
- * Date Created: 21 August 2023
- * Date Modified: 22 August 2023
  * File Purpose: Control Behaviour of Powerups
  */
 using System;
@@ -14,6 +11,7 @@ namespace GameNameSpace
 {
     public class PowerUpController : MonoBehaviour
     {
+        //Variables
         private static bool[] activate = {false,false};
         private static bool activeDamage = false;
         public List<Powerups> powerups;
@@ -21,6 +19,8 @@ namespace GameNameSpace
         public TMP_Text[] texts = new TMP_Text[3];
         protected List<GameObject> gObjs = new List<GameObject>();
         public bool isCollisionScript;
+        
+        
         AmmoPU ammo;
         GameObject gameOb;
         DamagePU damage;
@@ -28,12 +28,14 @@ namespace GameNameSpace
         // Start is called before the first frame update
         void Start()
         {
+            //for every gameobject that has powerup tag
             foreach (GameObject gob in GameObject.FindGameObjectsWithTag("Powerup")){
+                //Add gameobject to list
                 gObjs.Add(gob);
             }
-            Debug.Log($"Powerups: {gObjs.Count}");
+            //Initialize powerup list
             powerups = new List<Powerups>();
-
+            //If this isn't a colliding script, set powerup vars and powerup texts
             if (!isCollisionScript){
                 ammo = new AmmoPU(texts[0]);
                 damage = new DamagePU(texts[1]);
@@ -43,26 +45,30 @@ namespace GameNameSpace
                 powerTexts[1] = damage;
                 powerTexts[2] = health;
             }
+            //If is collision scripts, add to list with appropriate parameters
             else if (isCollisionScript){
+
                 foreach(GameObject obj in gObjs.ToList()){
+
                     if (obj.name.ToLower().Contains("ammo")){
+
                         powerups.Add(new AmmoPU(texts[0], obj));
-                        Debug.Log("added ammo");
+                    
                     }
                     else if (obj.name.ToLower().Contains("heart")){
+
                         powerups.Add(new HealthPU(texts[2], obj));
-                        Debug.Log("added heart");
+
                     }
                     else if (obj.name.ToLower().Contains("damage")){
+
                         powerups.Add(new DamagePU(texts[1], obj));
-                        Debug.Log("Added damage");
-                    }
-                    else{
-                        Debug.Log($"Incorrect assignment to gObjs List in PowerUpController of {obj.name} {obj}");
+
                     }
                     gObjs.Remove(obj);
                 }
             }
+            //Add powerups to list
             powerups.Add(ammo);
             powerups.Add(damage);
             powerups.Add(health);
@@ -74,55 +80,37 @@ namespace GameNameSpace
         // Update is called once per frame
         void Update()
         {
+            //For each powerup in powerup list, if is text set color
             foreach (Powerups powerup in powerups.ToList()){
                 if(powerup != null && powerup.IsText) {
                     powerup.SetColor();
                 }
-                //Debug.Log(powerup); 
             }
+            //If isn't collision script
             if(!isCollisionScript){
-            foreach(Powerups powerup in powerups.ToList()){
-                if(powerup.associatedObject == null){
-                if (Input.GetKeyDown(powerup.Key)){
-                    if(powerup is HealthPU){
-                        activate[0] = powerup.CanInc?powerup.ActiveAction() : false;
-                    }
-                    else if(powerup is AmmoPU){
-                        activate[1] = powerup.CanInc?powerup.ActiveAction():false;
-                    }
-                    else if (powerup is DamagePU){
-                        //Add functionality for damage
 
-                        Debug.Log("Damageusage registered");
-                        if(powerTexts[1].Count > 0) {Debug.Log("Damageusage success");}
-
+                //foreach powerup in list, if their key is pressed, if can increment activate action
+                foreach(Powerups powerup in powerups.ToList()){
+                    if(powerup.associatedObject == null){
+                    if (Input.GetKeyDown(powerup.Key)){
+                        if(powerup is HealthPU){
+                            activate[0] = powerup.CanInc?powerup.ActiveAction() : false;
+                        }
+                        else if(powerup is AmmoPU){
+                            activate[1] = powerup.CanInc?powerup.ActiveAction():false;
+                        }                    
+                    }              
+                    //Set powerup color
+                    powerup.SetColor();
                     }
-                    
-                }
-                
-                
-                
-                
-                //For testing **********************
-                /*if (Input.GetKeyDown(powerup.Key)){
-                    powerup.Count++;
-                    powerup.UpdateText();
-                }*/
-                //END for testing ******************
-                
-                
-                
-                
-                powerup.SetColor();
                 }
             }
-            }
+            //if not collision script
             else{
-                //Debug.Log("TEST if access");
+                //if a collision has happened
                 if(LocalCollision.localCollision != null){
                     gameOb = LocalCollision.CollidedGO;
-                    //Debug.Log(gameOb);
-                    //Debug.Log("IEFJOSIJEFIOJ");
+                    //Add appropriate powerup, update text, set colour, destroy poweurp object
                     foreach(Powerups powerup in powerups.ToList()){
                         if (gameOb != null && powerup != null && powerup.associatedObject == gameOb && gameOb.name.ToLower().Contains(powerup.Name)) 
                         {    
@@ -135,12 +123,6 @@ namespace GameNameSpace
                             else if(powerup is DamagePU dm){
                                 DamagePU.AddDamage(1);
                             }
-                            // **** Testing 
-                            /*Debug.Log(gameOb.name.ToLower().Contains(powerup.Name).ToString() + " Condition checker");
-                            Debug.Log(gameOb.name.ToLower() + " ColliderGOName");
-                            Debug.Log(powerup.Name + " powerupName");
-                            Debug.Log($"{powerup.Count,-5} powerupCount");
-                            */
                             powerup.UpdateText();
                             powerup.SetColor();
                             Destroy(powerup.associatedObject);
@@ -150,12 +132,16 @@ namespace GameNameSpace
             }
 
         }
-
+        /// <summary>
+        /// Get and set activated powerups
+        /// </summary>
         public static bool[] ActivatedPowerups{
             get {return activate;}
             set {activate = value;}
         }
-
+        /// <summary>
+        /// Get and set active damage
+        /// </summary>
         public static bool ActiveDamage{
             get{return activeDamage;}
             set{activeDamage = value;}
